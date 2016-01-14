@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>net.preparatusopos.project</groupId>
+	<artifactId>ptoproj</artifactId>
+	<version>0.1.0</version>
+	<packaging>pom</packaging>
+	
+	<name>Prepara tus Opos (Project)</name>
+	<description>
+		Proyecto de "Prepara tus Opos".
+	</description>
+	
+	<organization>
+		<name>Prepara tus Opos</name>
+		<url>http://www.preparatusopos.net/</url>
+	</organization>
+	
+	<build>
+		<pluginManagement>
+			<plugins>
+			
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.3</version>
+					<configuration>
+						<source>${settings.compiler.sourceVersion}</source>
+						<target>${settings.compiler.targetVersion}</target>
+					</configuration>
+				</plugin>
+				
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jarsigner-plugin</artifactId>
+					<version>1.4</version>
+					<configuration>
+						<keystore>${settings.codesigner.keystore}</keystore>
+						<storetype>${settings.codesigner.storetype}</storetype>
+						<alias>${settings.codesigner.alias}</alias>
+						<keypass>${settings.codesigner.keypass}</keypass>
+						<storepass>${settings.codesigner.storepass}</storepass>
+						<sigfile>PTO</sigfile>
+					</configuration>
+				</plugin>
+				
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-site-plugin</artifactId>
+					<version>3.4</version>
+					<configuration>
+						<reportPlugins>
+						
+							<plugin>
+								<groupId>org.apache.maven.plugins</groupId>
+								<artifactId>maven-javadoc-plugin</artifactId>
+								<version>2.10.3</version>
+								<configuration>
+									<doctitle>Prepara tus Opos - Public API</doctitle>
+									<charset>UTF-8</charset>
+									<encoding>UTF-8</encoding>
+									<links>
+										<link>http://docs.oracle.com/javase/7/docs/api/</link>
+										<link>http://docs.oracle.com/javaee/7/api/</link>
+									</links>
+								</configuration>
+							</plugin>
+							
+						</reportPlugins>
+					</configuration>
+				</plugin>
+				
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>com.googlecode.maven-download-plugin</groupId>
+										<artifactId>download-maven-plugin</artifactId>
+										<versionRange>[1.2.1,)</versionRange>
+										<goals>
+											<goal>wget</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore/>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+				
+			</plugins>
+		</pluginManagement>
+	</build>
+	
+	<properties>
+	
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		
+		<settings.compiler.sourceVersion>1.7</settings.compiler.sourceVersion>
+		<settings.compiler.targetVersion>1.7</settings.compiler.targetVersion>
+		
+		<settings.codesigner.keystore>keystore.jks</settings.codesigner.keystore>
+		<settings.codesigner.storetype>JKS</settings.codesigner.storetype>
+		<settings.codesigner.alias>codesigner</settings.codesigner.alias>
+		<settings.codesigner.keypass>12345678</settings.codesigner.keypass>
+		<settings.codesigner.storepass>12345678</settings.codesigner.storepass>
+		
+	</properties>
+	
+</project>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>net.preparatusopos.project</groupId>
+		<artifactId>ptoproj</artifactId>
+		<version>0.1.0</version>
+	</parent>
+	
+	<groupId>net.preparatusopos.resource.security.external</groupId>
+	<artifactId>ptoextuidra</artifactId>
+	<version>0.1.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
+	
+	<name>Prepara tus Opos (External UID - RA)</name>
+	<description>
+		Implementaciones de 'External UID' como adaptador de recurso.
+	</description>
+	
+	<dependencies>
+	
+		<dependency>
+			<groupId>net.preparatusopos.util.resource</groupId>
+			<artifactId>ptorau</artifactId>
+			<version>0.1.0-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>net.preparatusopos.security.external</groupId>
+			<artifactId>ptoextuid</artifactId>
+			<version>0.1.0-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>7.0</version>
+			<scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.google.api-client</groupId>
+			<artifactId>google-api-client</artifactId>
+			<version>1.20.0</version>
+		</dependency>
+		
+	</dependencies>
+	
+	<build>
+		<plugins>
+		
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-rar-plugin</artifactId>
+				<version>2.4</version>
+				<executions>
+					<execution>
+						<id>rar</id>
+						<goals>
+							<goal>rar</goal>
+						</goals>
+						<configuration>
+							<warnOnMissingRaXml>false</warnOnMissingRaXml>
+							<rarSourceDirectory>${project.build.outputDirectory}</rarSourceDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			
+		</plugins>
+	</build>
+	
+</project>

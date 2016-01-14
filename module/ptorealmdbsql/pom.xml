@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>net.preparatusopos.project</groupId>
+		<artifactId>ptoproj</artifactId>
+		<version>0.1.0</version>
+	</parent>
+	
+	<groupId>net.preparatusopos.security.auth</groupId>
+	<artifactId>ptorealmdbsql</artifactId>
+	<version>0.1.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
+	
+	<name>Prepara tus Opos (Realm DB SQL)</name>
+	<description>
+		Implementación de base de datos SQL para el reino de seguridad PTO.
+	</description>
+	
+	<dependencies>
+	
+		<dependency>
+			<groupId>net.preparatusopos.security.auth</groupId>
+			<artifactId>ptorealm</artifactId>
+			<version>0.1.0-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.derby</groupId>
+			<artifactId>derby</artifactId>
+			<version>10.12.1.1</version>
+			<scope>test</scope>
+		</dependency>
+		
+	</dependencies>
+	
+</project>

@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	version="2.2">
+	
+	<!-- ISSUE: https://java.net/jira/browse/JAVASERVERFACES-3399 -->
+	<!-- xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://www.oracle.com/webfolder/technetwork/jsc/xml/ns/javaee/web-facesconfig_2_2.xsd" -->
+	
+	<application>
+		<resource-bundle>
+			<base-name>net.preparatusopos.app.ma.web.Messages</base-name>
+			<var>messages</var>
+		</resource-bundle>
+	</application>
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>home</from-outcome>
+			<to-view-id>/home.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>login</from-outcome>
+			<to-view-id>/login.xhtml</to-view-id>
+			<redirect>
+				<view-param>
+					<name>r</name>
+					<value>home.html</value>
+				</view-param>
+			</redirect>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>logout</from-outcome>
+			<to-view-id>/logout.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>register</from-outcome>
+			<to-view-id>/register.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>account</from-outcome>
+			<to-view-id>/account.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/home.xhtml</from-view-id>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/login.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>register</from-outcome>
+			<to-view-id>/register.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/logout.xhtml</from-view-id>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/register.xhtml</from-view-id>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/account.xhtml</from-view-id>
+	</navigation-rule>
+	
+</faces-config>

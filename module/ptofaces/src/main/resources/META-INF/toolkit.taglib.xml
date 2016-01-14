@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<facelet-taglib
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://www.oracle.com/webfolder/technetwork/jsc/xml/ns/javaee/web-facelettaglibrary_2_2.xsd"
+	version="2.2">
+	
+	<namespace>http://faces.preparatusopos.net/taglib/toolkit</namespace>
+	
+	<tag>
+		<tag-name>outputIcon</tag-name>
+		<component>
+			<component-type>net.preparatusopos.faces.ToolkitOutputResource</component-type>
+			<renderer-type>net.preparatusopos.faces.ToolkitOutputIcon</renderer-type>
+		</component>
+	</tag>
+	
+</facelet-taglib>

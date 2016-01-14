@@ -1,0 +1,9 @@
+__pycache__/
+.metadata/
+.settings/
+target/
+work/
+.classpath
+.project
+dependency-reduced-pom.xml
+*.log

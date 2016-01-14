@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:composite="http://xmlns.jcp.org/jsf/composite">
+	
+	<composite:interface>
+	
+		<composite:attribute name="section" type="java.lang.String"/>
+		<composite:attribute name="logged" type="java.lang.Boolean"/>
+		
+	</composite:interface>
+	
+	<composite:implementation>
+	
+		<jsf:element p:elementName="li" p:class="menu-item ${not empty section and section == cc.attrs.section ? 'current' : ''}" rendered="${empty cc.attrs.logged or cc.attrs.logged == pageBean.logged}">
+			<composite:insertChildren/>
+		</jsf:element>
+		
+	</composite:implementation>
+	
+</html>

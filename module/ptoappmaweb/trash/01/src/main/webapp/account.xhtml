@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:panel="http://xmlns.jcp.org/jsf/composite/panel"
+	xmlns:tk="http://faces.preparatusopos.net/taglib/toolkit"
+	template="/WEB-INF/templates/base.xhtml">
+	
+	<ui:param name="section" value="account"/>
+	
+	<ui:define name="modal">
+	
+		<panel:dialog id="addProfileDialog" title="${messages.addProfileTitle}" rendered="${not empty accountBean.profileAdding}">
+			<h:form>
+			
+				<tk:panelFieldGroup styleClass="fieldgroup">
+					<tk:panelField styleClass="field">
+						<h:outputLabel for="type">${messages.profileTypeLabel}</h:outputLabel>
+						<tk:selectOneMenu id="type" value="${accountBean.profileAdding.info.type}" required="true" styleClass="select">
+							<f:selectItems value="${accountBean.profileTypes}" var="profileType" itemValue="#{profileType}" itemLabel="#{profileTypeText[profileType]}"/>
+						</tk:selectOneMenu>
+					</tk:panelField>
+				</tk:panelFieldGroup>
+				<tk:panelFieldGroup styleClass="commandgroup">
+					<tk:panelField styleClass="command">
+						<h:commandButton value="${messages.profileAddConfirmActionName}">
+							<f:ajax execute="@form" listener="${accountBean.addProfileConfirm}" render="modalPanel layoutPanel:profilesPanelList"/>
+						</h:commandButton>
+					</tk:panelField>
+					<tk:panelField styleClass="command">
+						<h:commandButton value="${messages.profileAddCancelActionName}">
+							<f:ajax listener="${accountBean.addProfileCancel}" render="modalPanel"/>
+						</h:commandButton>
+					</tk:panelField>
+				</tk:panelFieldGroup>
+				
+			</h:form>
+			<f:ajax event="close" listener="${accountBean.addProfileCancel}" render="modalPanel"/>
+		</panel:dialog>
+		
+		<panel:dialog id="removeProfileDialog" title="${messages.removeProfileTitle}" rendered="${not empty accountBean.profileRemoval}">
+			<h:form>
+			
+				<h:panelGroup layout="block" styleClass="profilepanel">
+					<tk:panelFieldGroup>
+						<tk:panelField>
+							<h:outputText value="#{profileTypeText[accountBean.profileRemoval.info.type]}"/>
+						</tk:panelField>
+					</tk:panelFieldGroup>
+				</h:panelGroup>
+				<tk:panelFieldGroup styleClass="commandgroup">
+					<tk:panelField styleClass="command">
+						<h:commandButton value="${messages.profileRemoveConfirmActionName}">
+							<f:ajax execute="@form" listener="${accountBean.removeProfileConfirm}" render="modalPanel layoutPanel:profilesPanelList"/>
+						</h:commandButton>
+					</tk:panelField>
+					<tk:panelField styleClass="command">
+						<h:commandButton value="${messages.profileRemoveCancelActionName}">
+							<f:ajax listener="${accountBean.removeProfileCancel}" render="modalPanel"/>
+						</h:commandButton>
+					</tk:panelField>
+				</tk:panelFieldGroup>
+				
+			</h:form>
+			<f:ajax event="close" listener="${accountBean.removeProfileCancel}" render="modalPanel"/>
+		</panel:dialog>
+		
+		<panel:dialog id="removeCredentialDialog" title="${messages.removeCredentialTitle}" rendered="${not empty accountBean.credentialRemoval}">
+			<h:form>
+			
+				<h:panelGroup layout="block" styleClass="credentialpanel">
+					<tk:panelFieldGroup>
+						<tk:panelField>
+							<h:outputText value="#{messages.mailAddressType}" rendered="${accountBean.credentialRemoval.type == 'MAIL_ADDRESS'}"/>
+							<h:outputText value="#{messages.googleAccountType}" rendered="${accountBean.credentialRemoval.type == 'GOOGLE_ACCOUNT'}"/>
+						</tk:panelField>
+						<tk:panelField>
+							<h:outputText value="${accountBean.credentialRemoval.description}"/>
+						</tk:panelField>
+					</tk:panelFieldGroup>
+					<h:graphicImage library="theme" name="basic/image/mail-icon.png" width="48" height="48" rendered="${accountBean.credentialRemoval.type == 'MAIL_ADDRESS'}"/>
+					<h:graphicImage library="theme" name="basic/image/google-icon.png" width="48" height="48" rendered="${accountBean.credentialRemoval.type == 'GOOGLE_ACCOUNT'}"/>
+				</h:panelGroup>
+				<tk:panelFieldGroup styleClass="commandgroup">
+					<tk:panelField styleClass="command">
+						<h:commandButton action="${accountBean.removeCredential}" value="${messages.credentialRemoveActionName}"/>
+					</tk:panelField>
+					<tk:panelField styleClass="command">
+						<h:commandButton value="${messages.credentialRemoveCancelActionName}">
+							<f:ajax listener="${accountBean.removeCredentialCancel}" render="modalPanel"/>
+						</h:commandButton>
+					</tk:panelField>
+				</tk:panelFieldGroup>
+				
+			</h:form>
+			<f:ajax event="close" listener="${accountBean.removeCredentialCancel}" render="modalPanel"/>
+		</panel:dialog>
+		
+	</ui:define>
+	
+	<ui:define name="content">
+	
+		<h:panelGroup layout="block" styleClass="section">
+			<jsf:element p:elementName="h1">#{messages.personalDataTitle}</jsf:element>
+			<h:form id="personalDataForm">
+				
+				<tk:panelFieldGroup class="fieldgroup">
+					<tk:panelField styleClass="field" errorClass="error">
+						<h:outputLabel for="layoutPanel:personalDataForm:memberNameField">${messages.memberNameLabel}</h:outputLabel>
+						<h:inputText id="memberNameField" value="${accountBean.memberName}">
+							<f:ajax execute="@form" listener="${accountBean.updateInfo}" render="menuPanel layoutPanel:messagesPanel"/>
+						</h:inputText>
+						<h:messages for="layoutPanel:personalDataForm:memberNameField" styleClass="messages"/>
+					</tk:panelField>
+					<tk:panelField styleClass="field" errorClass="error">
+						<h:outputLabel for="layoutPanel:personalDataForm:memberSurnameField">${messages.memberSurnameLabel}</h:outputLabel>
+						<h:inputText id="memberSurnameField" value="${accountBean.memberSurname}">
+							<f:ajax execute="@form" listener="${accountBean.updateInfo}" render="layoutPanel:messagesPanel"/>
+						</h:inputText>
+						<h:messages for="layoutPanel:personalDataForm:memberSurnameField" styleClass="messages"/>
+					</tk:panelField>
+				</tk:panelFieldGroup>
+				
+			</h:form>
+		</h:panelGroup>
+		
+		<h:panelGroup id="profilesPanel" layout="block" styleClass="section">
+			<jsf:element p:elementName="h1">#{messages.profilesTitle}</jsf:element>
+			<h:panelGroup id="profilesPanelList" layout="block">
+				<ui:repeat value="${accountBean.profiles}" var="profile">
+					<h:form>
+					
+						<h:panelGroup layout="block" styleClass="profilepanel">
+							<tk:panelFieldGroup>
+								<tk:panelField>
+									<h:outputText value="#{profileTypeText[profile.info.type]}"/>
+								</tk:panelField>
+							</tk:panelFieldGroup>
+						</h:panelGroup>
+						<tk:panelFieldGroup>
+							<tk:panelField>
+								<h:commandLink value="${messages.profileRemoveActionName}">
+									<f:ajax execute="@form" listener="${profile.remove}" render="modalPanel removeProfileDialog"/>
+								</h:commandLink>
+							</tk:panelField>
+						</tk:panelFieldGroup>
+						
+					</h:form>
+				</ui:repeat>
+			</h:panelGroup>
+			<h:form>
+				<h:commandLink value="#{messages.addProfileActionName}">
+					<f:ajax listener="#{accountBean.addProfile}" render="modalPanel addProfileDialog"/>
+				</h:commandLink>
+			</h:form>
+		</h:panelGroup>
+		
+		<h:panelGroup layout="block" styleClass="section">
+			<jsf:element p:elementName="h1">#{messages.credentialsTitle}</jsf:element>
+			<ui:repeat value="${accountBean.credentials}" var="credential">
+				<h:form>
+				
+					<h:panelGroup layout="block" styleClass="credentialpanel">
+						<tk:panelFieldGroup>
+							<tk:panelField>
+								<h:outputText value="#{messages.mailAddressType}" rendered="${credential.type == 'MAIL_ADDRESS'}"/>
+								<h:outputText value="#{messages.googleAccountType}" rendered="${credential.type == 'GOOGLE_ACCOUNT'}"/>
+							</tk:panelField>
+							<tk:panelField>
+								<h:outputText value="${credential.description}"/>
+							</tk:panelField>
+						</tk:panelFieldGroup>
+						<h:graphicImage library="theme" name="basic/image/mail-icon.png" width="32" height="32" rendered="${credential.type == 'MAIL_ADDRESS'}"/>
+						<h:graphicImage library="theme" name="basic/image/google-icon.png" width="32" height="32" rendered="${credential.type == 'GOOGLE_ACCOUNT'}"/>
+					</h:panelGroup>
+					<tk:panelFieldGroup>
+						<tk:panelField>
+							<h:commandLink value="${messages.credentialRemoveActionName}">
+								<f:ajax execute="@form" listener="${credential.remove}" render="modalPanel"/>
+							</h:commandLink>
+						</tk:panelField>
+					</tk:panelFieldGroup>
+					
+				</h:form>
+			</ui:repeat>
+			<h:link outcome="register">${messages.addCredentialActionName}</h:link>
+		</h:panelGroup>
+		
+	</ui:define>
+	
+</ui:composition>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:panel="http://xmlns.jcp.org/jsf/composite/panel"
+	xmlns:tk="http://faces.preparatusopos.net/taglib/toolkit">
+	
+	<h:head>
+		<jsf:element p:elementName="title">${messages.applicationTitle}</jsf:element>
+		<tk:outputIconLink library="theme" name="basic/image/favicon.png"/>
+		<h:outputStylesheet library="theme" name="basic/main.css"/>
+		<h:outputStylesheet library="theme" name="basic/spinner.css"/>
+		<jsf:element p:elementName="meta" p:charset="UTF-8"/>
+		<ui:insert name="metadata"/>
+	</h:head>
+	
+	<h:body>
+		
+		<jsf:element p:elementName="section">
+		
+			<panel:menu id="menuPanel">
+				<panel:menuItem section="home">
+					<h:link outcome="home">${messages.homeActionName}</h:link>
+				</panel:menuItem>
+				<panel:menuItem section="login" logged="false">
+					<h:link outcome="login">${messages.loginActionName}</h:link>
+				</panel:menuItem>
+				<panel:menuItem section="account" logged="true">
+					<h:link outcome="account">${messages.accountActionName}</h:link>
+				</panel:menuItem>
+				<panel:menuItem logged="true">
+					<h:link outcome="logout">${messages.logoutActionName} (${pageBean.memberName})</h:link>
+				</panel:menuItem>
+			</panel:menu>
+			
+			<panel:layout id="layoutPanel">
+			
+				<h:panelGroup layout="block" id="messagesPanel" styleClass="toast">
+					<h:messages globalOnly="true"/>
+				</h:panelGroup>
+				
+				<h:panelGroup layout="block" id="contentPanel" styleClass="content">
+					<ui:insert name="content"/>
+				</h:panelGroup>
+				
+			</panel:layout>
+			
+		</jsf:element>
+		
+		<jsf:element id="modalPanel" p:elementName="div">
+			<ui:insert name="modal"/>
+		</jsf:element>
+		
+		<tk:panelAjaxLoading id="loadingPanel" visibleClass="loading" hiddenClass="inactive">
+			<h:graphicImage library="theme" name="basic/image/spinner.svg" width="120" height="120" styleClass="spinner"/>
+		</tk:panelAjaxLoading>
+		
+		<ui:insert name="init"/>
+		
+		<h:outputScript library="fix" name="js/ajax-view-state.js"/>
+		
+	</h:body>
+	
+</html>

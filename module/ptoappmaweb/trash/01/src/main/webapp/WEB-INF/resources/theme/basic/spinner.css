@@ -1,0 +1,12 @@
+img.spinner {
+	animation: spin 800ms steps(12, end) infinite;
+}
+
+@keyframes spin {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg); 
+	}
+}

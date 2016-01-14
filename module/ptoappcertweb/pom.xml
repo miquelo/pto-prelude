@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>net.preparatusopos.project</groupId>
+		<artifactId>ptoproj</artifactId>
+		<version>0.1.0</version>
+	</parent>
+	
+	<groupId>net.preparatusopos.app</groupId>
+	<artifactId>ptoappcertweb</artifactId>
+	<version>0.1.0-SNAPSHOT</version>
+	<packaging>war</packaging>
+	
+	<name>Prepara tus Opos (Application CERT WEB)</name>
+	<description>
+		Módulo "Certificate WEB" de la aplicación de "Prepara tus Opos".
+	</description>
+	
+	<dependencies>
+	
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>7.0</version>
+			<scope>provided</scope>
+		</dependency>
+		
+	</dependencies>
+	
+</project>

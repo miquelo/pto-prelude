@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<facelet-taglib
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://www.oracle.com/webfolder/technetwork/jsc/xml/ns/javaee/web-facelettaglibrary_2_2.xsd"
+	version="2.2">
+	
+	<namespace>http://faces.preparatusopos.net/taglib/toolkit</namespace>
+	
+	<tag>
+		<tag-name>selectOneMenu</tag-name>
+		<component>
+			<component-type>javax.faces.HtmlSelectOneMenu</component-type>
+			<renderer-type>net.preparatusopos.faces.HtmlSelectOneMenu</renderer-type>
+		</component>
+	</tag>
+	
+	<tag>
+		<tag-name>outputRedirect</tag-name>
+		<component>
+			<component-type>net.preparatusopos.faces.ToolkitOutputRedirect</component-type>
+			<renderer-type>net.preparatusopos.faces.ToolkitOutputRedirect</renderer-type>
+		</component>
+	</tag>
+	
+	<tag>
+		<tag-name>toggleClass</tag-name>
+		<component>
+			<component-type>net.preparatusopos.faces.ToolkitToggleClass</component-type>
+			<renderer-type>net.preparatusopos.faces.ToolkitToggleClass</renderer-type>
+		</component>
+	</tag>
+	
+	<tag>
+		<tag-name>updateMaxHeight</tag-name>
+		<behavior>
+			<behavior-id>net.preparatusopos.faces.ToolkitUpdateMaxHeightBehavior</behavior-id>
+		</behavior>
+	</tag>
+	
+	<tag>
+		<tag-name>googleOAuthInit</tag-name>
+		<component>
+			<component-type>net.preparatusopos.faces.ToolkitOAuthInit</component-type>
+			<renderer-type>net.preparatusopos.faces.ToolkitGoogleOAuthInit</renderer-type>
+		</component>
+	</tag>
+	
+	<tag>
+		<tag-name>googleOAuthRequest</tag-name>
+		<behavior>
+			<behavior-id>net.preparatusopos.faces.ToolkitGoogleOAuthRequestBehavior</behavior-id>
+		</behavior>
+	</tag>
+	
+	<tag>
+		<tag-name>panelAjaxLoading</tag-name>
+		<component>
+			<component-type>net.preparatusopos.faces.ToolkitPanelAjaxLoading</component-type>
+			<renderer-type>net.preparatusopos.faces.ToolkitPanelAjaxLoading</renderer-type>
+		</component>
+	</tag>
+	
+	<tag>
+		<tag-name>panelField</tag-name>
+		<component>
+			<component-type>net.preparatusopos.faces.ToolkitPanelField</component-type>
+			<renderer-type>net.preparatusopos.faces.ToolkitPanelField</renderer-type>
+		</component>
+	</tag>
+	
+	<tag>
+		<tag-name>panelFieldGroup</tag-name>
+		<component>
+			<component-type>net.preparatusopos.faces.ToolkitPanelFieldGroup</component-type>
+			<renderer-type>net.preparatusopos.faces.ToolkitPanelFieldGroup</renderer-type>
+		</component>
+	</tag>
+	
+	<tag>
+		<tag-name>panelExample</tag-name>
+		<component>
+			<resource-id>/META-INF/resources/net.preparatusopos.faces.composite/panelExample.xhtml</resource-id>
+		</component>
+	</tag>
+	
+</facelet-taglib>

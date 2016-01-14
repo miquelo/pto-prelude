@@ -1,0 +1,77 @@
+{
+	"variables": {
+		"debian_version": "8.5.0",
+		"iso_checksum": "011386fc26bd926e6e5c771a95490488d0603bbef5da3a5df7afaf62be3e17928c6d1bd728fd3ed18720ede4aec6798c7f718f5cab78aba6b57c9c8204f32546",
+		"iso_checksum_type": "sha512"
+	},
+	"builders": [
+		{
+			"type": "virtualbox-iso",
+			"boot_command": [
+				"<esc><wait>",
+				"install <wait>",
+				"preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/preseed.cfg <wait>",
+				"debian-installer=en_US <wait>",
+				"auto <wait>",
+				"locale=en_US <wait>",
+				"kbd-chooser/method=us <wait>",
+				"keyboard-configuration/xkb-keymap=us <wait>",
+				"netcfg/get_hostname={{.Name}} <wait>",
+				"netcfg/get_domain=vagrantup.com <wait>",
+				"fb=false <wait>",
+				"debconf/frontend=noninteractive <wait>",
+				"console-setup/ask_detect=false <wait>",
+				"console-keymaps-at/keymap=us <wait>",
+				"<enter><wait>"
+			],
+			"boot_wait": "10s",
+			"disk_size": 32768,
+			"guest_os_type": "Debian_64",
+			"headless": true,
+			"http_directory": "http",
+			"iso_checksum": "{{user `iso_checksum`}}",
+			"iso_checksum_type": "{{user `iso_checksum_type`}}",
+			"iso_url": "http://cdimage.debian.org/cdimage/release/current/amd64/iso-cd/debian-{{user `debian_version`}}-amd64-netinst.iso",
+			"ssh_username": "#{admin_username}",
+			"ssh_password": "#{admin_password}",
+			"ssh_port": 22,
+			"ssh_wait_timeout": "1200s",
+			"shutdown_command": "echo '#{admin_username}' | sudo -S /sbin/shutdown -hP now",
+			"guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+			"virtualbox_version_file": ".vbox_version",
+			"vm_name": "debian-{{user `debian_version`}}-amd64",
+			"vboxmanage": [
+				[ "modifyvm", "{{.Name}}", "--memory", "256" ],
+				[ "modifyvm", "{{.Name}}", "--cpus", "1" ]
+			]
+		}
+	],
+	"post-processors": [
+		{
+			"type": "vagrant",
+			"compression_level": "9",
+			"output": "debian-{{user `debian_version`}}-amd64-{{.Provider}}.box",
+			"only": ["virtualbox-iso"]
+		}
+	],
+	"provisioners": [
+		{
+			"type": "shell",
+			"environment_vars": [
+				"ADMIN_NAME=#{admin_username}"
+			],
+			"execute_command": "echo '#{admin_username}' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
+			"scripts": [
+				"script/update.sh",
+				"script/sshd.sh",
+				"script/networking.sh",
+				"script/sudoers.sh",
+				"script/vagrant.sh",
+				"script/vbaddguest.sh",
+				"script/cleanup.sh"
+			],
+			"only": ["virtualbox-iso"]
+		}
+	]
+}
+

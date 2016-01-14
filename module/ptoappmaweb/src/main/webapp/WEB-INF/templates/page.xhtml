@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:v="http://xmlns.jcp.org/jsf/composite/view"
+	xmlns:t="http://faces.preparatusopos.net/taglib/toolkit">
+	
+	<h:doctype rootElement="html"/>
+	
+	<c:set var="theme" value="basic"/>
+	
+	<t:outputIcon library="theme" name="${theme}/image/favicon.png" type="image/png"/>
+	<h:outputStylesheet library="theme" name="${theme}/style/main.css"/>
+	<h:outputStylesheet library="theme" name="${theme}/style/menu.css"/>
+	<h:outputScript library="script" name="menu.js"/>
+	<h:outputScript library="javax.faces" name="jsf.js"/>
+	<h:outputScript library="net.preparatusopos.faces" name="script/fix-ajax-viewstate.js"/>
+	
+	<jsf:element p:elementName="html" p:xmlns="http://www.w3.org/1999/xhtml">
+		
+		<h:head>
+			<jsf:element p:elementName="title">
+				<h:outputFormat value="${messages.applicationTitle}">
+					<f:param value="${messages.domainTitle}"/>
+				</h:outputFormat>
+			</jsf:element>
+			<jsf:element p:elementName="meta" p:charset="UTF-8"/>
+		</h:head>
+		
+		<h:body>
+		
+			<jsf:element p:elementName="header">
+				<jsf:element p:elementName="nav" p:class="menu-mobile">
+					<h:outputLink value="javascript:" onclick="net.preparatusopos.appmaweb.faces.menu.show(event)">
+						<h:graphicImage library="theme" name="${theme}/image/hamburger.svg"/>
+					</h:outputLink>
+				</jsf:element>
+				<jsf:element p:elementName="nav" p:class="menu-items">
+					<h:link outcome="home">
+						<h:outputFormat value="${messages.applicationTitle}">
+							<f:param value="${messages.domainTitle}"/>
+						</h:outputFormat>
+					</h:link>
+					<h:link outcome="account" onclick="net.preparatusopos.appmaweb.faces.menu.account(event)">
+						<h:graphicImage library="theme" name="${theme}/image/no-photo.svg"/>
+						<h:outputText value="${userBean.name}" title="${userBean.name}"/>
+					</h:link>
+					<jsf:element p:elementName="ul" rendered="${not userBean.logged}">
+						<v:menuItem outcome="login" value="${messages.loginActionName}" current="${sectionName == 'login'}"/>
+						<v:menuItem outcome="register" value="${messages.registerActionName}" current="${sectionName == 'register'}"/>
+					</jsf:element>
+					<jsf:element p:elementName="ul">
+						<v:menuItem outcome="account" value="${messages.accountActionName}" current="${sectionName == 'account'}" styleClass="rendered-desktop"/>
+						<v:menuItem outcome="logout" value="${messages.logoutActionName}" current="${sectionName == 'logout'}"/>
+					</jsf:element>
+				</jsf:element>
+			</jsf:element>
+			
+			<jsf:element p:elementName="section">
+			</jsf:element>
+			
+			<jsf:element p:elementName="footer">
+			</jsf:element>
+			
+		</h:body>
+		
+	</jsf:element>
+	
+</f:view>

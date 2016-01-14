@@ -1,0 +1,40 @@
+#!/usr/bin/ruby -w
+
+VAGRANTFILE_API_VERSION = "2"
+
+MODULE_DIR = "#{module_dir}"
+PROVISION_DIR = "#{layout_dir}/provision"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+	
+	config.vm.box = "pto-#{profile_name}/debian"
+	config.vm.provider "virtualbox"
+	config.vm.provision "shell", path: "##{PROVISION_DIR}/fix-stdin.sh"
+	config.vm.synced_folder "vagrant", "/vagrant", create: true
+	
+	config.vm.define "pto-#{profile_name}-app", autostart: true do |instance|
+		instance.vm.hostname = "pto-app"
+		instance.vm.network "private_network", ip: "#{machine_app_host}"
+		instance.vm.provider :virtualbox do |pr|
+			pr.customize [
+				"modifyvm", :id,
+				"--memory", 1024
+			]
+		end
+		instance.vm.provision "file", source: "##{MODULE_DIR}/ptorealm/target/ptorealm-0.1.0-SNAPSHOT.jar", destination: "/tmp/ptorealm.jar"
+		instance.vm.provision "file", source: "##{MODULE_DIR}/ptorealmdbsql/target/ptorealmdbsql-0.1.0-SNAPSHOT.jar", destination: "/tmp/ptorealmdbsql.jar"
+		instance.vm.provision "file", source: "##{MODULE_DIR}/ptorealmasgf/target/ptorealmasgf-0.1.0-SNAPSHOT.jar", destination: "/tmp/ptorealmasgf.jar"
+		instance.vm.provision "file", source: "##{PROVISION_DIR}/app-index.html", destination: "/tmp/app-index.html"
+		instance.vm.provision "shell", path: "##{PROVISION_DIR}/ssl.sh"
+		instance.vm.provision "shell", path: "##{PROVISION_DIR}/smtp.sh"
+		instance.vm.provision "shell", path: "##{PROVISION_DIR}/httpserv.sh"
+		instance.vm.provision "shell", path: "##{PROVISION_DIR}/appserv.sh"
+	end
+	
+	config.vm.define "pto-#{profile_name}-db", autostart: true do |instance|
+		instance.vm.hostname = "pto-db"
+		instance.vm.network "private_network", ip: "#{machine_db_host}"
+		instance.vm.provision "shell", path: "##{PROVISION_DIR}/dbms.sh"
+	end
+	
+end

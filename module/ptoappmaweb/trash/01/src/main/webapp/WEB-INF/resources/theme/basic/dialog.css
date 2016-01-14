@@ -1,0 +1,47 @@
+section.dialog {
+	border-radius: 2pt;
+	overflow: hidden;
+	background: white;
+	box-shadow:
+		0 4px 8px 0 rgba(0, 0, 0, 0.2),
+		0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+section.dialog > header {
+	padding: 0;
+	background: #202030;
+	color: #e0e0f0;
+	font-weight: bold;
+}
+
+section.dialog > header > ul {
+	display: flex;
+	padding: 0;
+	flex-direction: row;
+}
+
+section.dialog > header > ul > li.title {
+	flex-grow: 1;
+	padding: 8pt;
+	padding-right: 8pt;
+}
+
+section.dialog > header > ul > li.close {
+	flex-grow: 0;
+}
+
+section.dialog > header > ul > li.close:hover {
+	background: #303040;
+}
+
+section.dialog > header > ul > li.close > a {
+	display: inline-block;
+	padding: 8pt;
+	color: #e0e0f0;
+	text-decoration: none;
+}
+
+section.dialog > section {
+	padding: 8pt;
+	background: white;
+}
