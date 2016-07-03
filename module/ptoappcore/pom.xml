@@ -31,6 +31,12 @@
 		</dependency>
 		
 		<dependency>
+			<groupId>net.preparatusopos.tools</groupId>
+			<artifactId>ptogeoloc</artifactId>
+			<version>0.1.0-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
 			<groupId>net.preparatusopos.security.external</groupId>
 			<artifactId>ptoextuid</artifactId>
 			<version>0.1.0-SNAPSHOT</version>
@@ -78,6 +84,7 @@
 							<artifactSet>
 								<includes>
 									<include>net.preparatusopos.app:ptoappdom</include>
+									<include>net.preparatusopos.tools:ptogeoloc</include>
 									<include>net.preparatusopos.security.external:ptoextuid</include>
 								</includes>
 							</artifactSet>

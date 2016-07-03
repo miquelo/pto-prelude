@@ -15,7 +15,7 @@
 	<groupId>net.preparatusopos.resource.security.external</groupId>
 	<artifactId>ptoextuidra</artifactId>
 	<version>0.1.0-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>rar</packaging>
 	
 	<name>Prepara tus Opos (External UID - RA)</name>
 	<description>

@@ -27,6 +27,8 @@
 	
 	<modules>
 		<module>../ptoappdom</module>
+		<module>../ptofilestg</module>
+		<module>../ptogeoloc</module>
 		<module>../ptoextuid</module>
 		<module>../ptorau</module>
 		<module>../ptorealm</module>

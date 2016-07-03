@@ -1,0 +1,29 @@
+table.mode-selector {
+	border: unset;
+	padding: 2pt;
+	background: unset;
+}
+
+table.mode-selector > tbody {
+	display: flex;
+	flex-direction: column;
+}
+
+table.mode-selector > tbody > tr {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	padding: 6pt;
+}
+
+table.mode-selector > tbody > tr > td {
+	display: inline-block;
+	padding: 0 4pt;
+	line-height: 12pt;
+}
+
+table.mode-selector > tbody > tr > td > label,
+table.mode-selector > tbody > tr > td > input {
+	vertical-align: bottom;
+	line-height: 12pt;
+}

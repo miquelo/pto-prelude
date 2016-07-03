@@ -11,8 +11,47 @@
 		<tag-name>outputIcon</tag-name>
 		<component>
 			<component-type>net.preparatusopos.faces.ToolkitOutputResource</component-type>
-			<renderer-type>net.preparatusopos.faces.ToolkitOutputIcon</renderer-type>
+			<renderer-type>net.preparatusopos.faces.ResourceIcon</renderer-type>
 		</component>
+	</tag>
+	
+	<tag>
+		<tag-name>panelField</tag-name>
+		<component>
+			<component-type>net.preparatusopos.faces.ToolkitPanelField</component-type>
+			<renderer-type>net.preparatusopos.faces.Field</renderer-type>
+		</component>
+	</tag>
+	
+	<tag>
+		<tag-name>panelFormat</tag-name>
+		<component>
+			<component-type>net.preparatusopos.faces.ToolkitPanelFormat</component-type>
+			<renderer-type>net.preparatusopos.faces.Format</renderer-type>
+		</component>
+	</tag>
+	
+	<tag>
+		<tag-name>selectOneMenu</tag-name>
+		<component>
+			<component-type>javax.faces.HtmlSelectOneMenu</component-type>
+			<renderer-type>net.preparatusopos.faces.Menu</renderer-type>
+		</component>
+	</tag>
+	
+	<tag>
+		<tag-name>removeClass</tag-name>
+		<behavior>
+			<behavior-id>net.preparatusopos.faces.RemoveClassBehavior</behavior-id>
+		</behavior>
+	</tag>
+	
+	<tag>
+		<tag-name>uploadFile</tag-name>
+		<behavior>
+			<behavior-id>net.preparatusopos.faces.UploadFileBehavior</behavior-id>
+			<handler-class>net.preparatusopos.faces.view.facelets.UploadFileBehaviorHandler</handler-class>
+		</behavior>
 	</tag>
 	
 </facelet-taglib>

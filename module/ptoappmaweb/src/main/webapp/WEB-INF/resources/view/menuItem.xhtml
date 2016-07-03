@@ -8,16 +8,16 @@
 	
 	<composite:interface>
 	
-		<composite:attribute name="outcome" type="java.lang.Object"/>
+		<composite:attribute name="outcome" type="java.lang.Object" required="true"/>
 		<composite:attribute name="value" type="java.lang.Object"/>
 		<composite:attribute name="current" type="java.lang.Boolean" default="false"/>
-		<composite:attribute name="styleClass" type="java.lang.String"/>
+		<composite:attribute name="desktopOnly" type="java.lang.Boolean" default="false"/>
 		
 	</composite:interface>
 	
 	<composite:implementation>
 	
-		<jsf:element p:elementName="li" p:class="${cc.attrs.styleClass}">
+		<jsf:element p:elementName="li" p:class="${cc.attrs.desktopOnly ? 'rendered-desktop' : ''}">
 			<h:link outcome="${cc.attrs.outcome}" styleClass="${cc.attrs.current ? 'current' : ''}">${cc.attrs.value}</h:link>
 		</jsf:element>
 		

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes
+	xmlns="http://xmlns.preparatusopos.net/xml/ns/geography"
+	version="1.0">
+	
+	<route name="passeig-de-gracia">
+		<inside>barcelona-city</inside>
+		<zip-code>08007</zip-code>
+		<zip-code>08008</zip-code>
+		<display-name>Passeig de Gràcia</display-name>
+		<display-name language="es">Paseo de Gracia</display-name>
+	</route>
+	
+</routes>

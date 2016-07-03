@@ -1,0 +1,4 @@
+section.contextual-section > header {
+	font-weight: bold;
+	cursor: pointer;
+}

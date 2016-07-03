@@ -68,6 +68,9 @@ class LocalProfile:
 		
 		self.__prepare_prop(props, "app_google_client_id", "<empty>")
 		self.__prepare_prop(props, "app_google_client_secret", "<empty>")
+		self.__prepare_prop(props, "app_google_application_name", "<empty>")
+		self.__prepare_prop(props, "app_google_credential", "<empty>")
+		self.__prepare_prop(props, "app_google_drive_folder", "<empty>")
 		
 		self.__box_file = resort.component.vagrant.BoxFile(
 				lambda ctx_props: "pto-{}/debian".format(
@@ -112,15 +115,16 @@ class LocalProfile:
 			yield "appmaweb"
 			yield "appcertweb"
 			yield "appcore"
+			yield "filestgra"
 			yield "extuidra"
 		elif comp_name == "appmaweb":
 			yield "appserv-app-running"
 			yield "module-appmaweb"
 			yield "app-settings"
 			yield "appcore"
-			yield "google-extid-resource"
 		elif comp_name == "appcertweb":
 			yield "appserv-app-running"
+			yield "google-drive-filestg-resource"
 			yield "module-appcertweb"
 		elif comp_name == "appcore":
 			yield "appserv-app-running"
@@ -131,6 +135,10 @@ class LocalProfile:
 			yield "google-extid-resource"
 			yield "app-datasource-resource"
 			yield "realm-datasource-resource"
+			yield "google-drive-filestg-resource"
+		elif comp_name == "filestgra":
+			yield "appserv-app-running"
+			yield "module-filestgra"
 		elif comp_name == "extuidra":
 			yield "appserv-app-running"
 			yield "machine-db-running"
@@ -138,6 +146,9 @@ class LocalProfile:
 		elif comp_name == "app-settings":
 			yield "appserv-app-running"
 		elif comp_name == "app-mail-session":
+			yield "appserv-app-running"
+		elif comp_name == "google-drive-filestg-resource":
+			yield "google-drive-filestg-pool"
 			yield "appserv-app-running"
 		elif comp_name == "google-extid-resource":
 			yield "google-extid-pool"
@@ -148,6 +159,8 @@ class LocalProfile:
 		elif comp_name == "realm-datasource-resource":
 			yield "app-datasource-pool"
 			yield "appserv-app-running"
+		elif comp_name == "google-drive-filestg-pool":
+			yield "filestgra"
 		elif comp_name == "google-extid-pool":
 			yield "extuidra"
 		elif comp_name == "app-datasource-pool":
@@ -172,7 +185,12 @@ class LocalProfile:
 			yield "resources-image"
 		elif comp_name.startswith("module-") and comp_name != "module-proj":
 			yield "module-proj"
-			if comp_name == "module-realmdbsql":
+			if comp_name == "module-faces":
+				yield "module-filestg"
+			if comp_name == "module-appdom":
+				yield "module-filestg"
+				yield "module-geoloc"
+			elif comp_name == "module-realmdbsql":
 				yield "module-realm"
 			elif comp_name == "module-realmasgf":
 				yield "module-realmdbsql"
@@ -183,6 +201,9 @@ class LocalProfile:
 			elif comp_name == "module-appcore":
 				yield "module-appdom"
 				yield "module-extuid"
+			elif comp_name == "module-filestgra":
+				yield "module-rau"
+				yield "module-filestg"
 			elif comp_name == "module-extuidra":
 				yield "module-rau"
 				yield "module-extuid"
@@ -243,9 +264,18 @@ class LocalProfile:
 		if comp_name == "module-rau":
 			return resort.component.maven.Project(
 					self.__module_path("ptorau"), True)
+		if comp_name == "module-filestg":
+			return resort.component.maven.Project(
+					self.__module_path("ptofilestg"), True)
+		if comp_name == "module-geoloc":
+			return resort.component.maven.Project(
+					self.__module_path("ptogeoloc"), True)
 		if comp_name == "module-extuid":
 			return resort.component.maven.Project(
 					self.__module_path("ptoextuid"), True)
+		if comp_name == "module-filestgra":
+			return resort.component.maven.Project(
+					self.__module_path("ptofilestgra"), False)
 		if comp_name == "module-extuidra":
 			return resort.component.maven.Project(
 					self.__module_path("ptoextuidra"), False)
@@ -297,6 +327,16 @@ class LocalProfile:
 					"jar"
 				)
 			)
+		if comp_name == "filestgra":
+			return self.__domain_app.application(
+				"ptofilestgra",
+				None,
+				self.__artifact_path(
+					"ptofilestgra",
+					"0.1.0-SNAPSHOT",
+					"rar"
+				)
+			)
 		if comp_name == "extuidra":
 			return self.__domain_app.application(
 				"ptoextuidra",
@@ -345,6 +385,24 @@ class LocalProfile:
 				{
 					"clientID": self.__props["app_google_client_id"],
 					"clientSecret": self.__props["app_google_client_secret"]
+				}
+			)
+		if comp_name == "google-drive-filestg-resource":
+			return self.__domain_app.connector_resource(
+				"file/PTOGoogleDriveFileStorage",
+				"PTOGoogleDriveFileStorage"
+			)
+		if comp_name == "google-drive-filestg-pool":
+			return self.__domain_app.connector_connection_pool(
+				"PTOGoogleDriveFileStorage",
+				"ptofilestgra",
+				"net.preparatusopos.resource.tools.file.google.drive."
+				"GoogleDriveFileStorageConnectionFactory",
+				{
+					"applicationName":
+							self.__props["app_google_application_name"],
+					"folderName": self.__props["app_google_drive_folder"],
+					"credential": self.__props["app_google_credential"]
 				}
 			)
 		if comp_name == "app-datasource-resource":

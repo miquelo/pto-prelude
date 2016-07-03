@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Installing dependencies
+apt-get update
 apt-get install -y apache2 libapache2-mod-jk
 
 # Installing certificates and keys

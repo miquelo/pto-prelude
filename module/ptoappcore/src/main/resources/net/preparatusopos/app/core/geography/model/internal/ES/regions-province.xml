@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<regions
+	xmlns="http://xmlns.preparatusopos.net/xml/ns/geography"
+	version="1.0">
+	
+	<region name="alicante">
+		<display-name>Alicante</display-name>
+		<display-name language="ca">Alacant</display-name>
+	</region>
+	
+	<region name="almeria">
+		<display-name>Almería</display-name>
+	</region>
+	
+	<region name="asturias">
+		<display-name>Asturias</display-name>
+		<display-name language="ca">Astúries</display-name>
+	</region>
+	
+	<region name="badajoz">
+		<display-name>Badajoz</display-name>
+	</region>
+	
+	<region name="barcelona">
+		<inside>catalunya</inside>
+		<display-name>Barcelona</display-name>
+	</region>
+	
+	<region name="cadiz">
+		<display-name>Cádiz</display-name>
+		<display-name language="ca">Cadis</display-name>
+	</region>
+	
+	<region name="cordoba">
+		<display-name>Córdoba</display-name>
+		<display-name language="ca">Còrdova</display-name>
+	</region>
+	
+	<region name="coruna">
+		<display-name>A Coruña</display-name>
+		<display-name language="es">La Coruña</display-name>
+	</region>
+	
+	<region name="girona">
+		<inside>catalunya</inside>
+		<display-name>Girona</display-name>
+		<display-name language="es">Gerona</display-name>
+	</region>
+	
+	<region name="granada">
+		<display-name>Granada</display-name>
+	</region>
+	
+	<region name="guipuzcoa">
+		<display-name>Guipúzcoa</display-name>
+		<display-name language="ca">Guipúscoa</display-name>
+	</region>
+	
+	<region name="islas-baleares">
+		<display-name>Illes Balears</display-name>
+		<display-name language="es">Islas Baleares</display-name>
+	</region>
+	
+	<region name="islas-baleares">
+		<display-name>Las Palmas</display-name>
+		<display-name language="ca">Les Palmes</display-name>
+	</region>
+	
+	<region name="madrid">
+		<display-name>Madrid</display-name>
+	</region>
+	
+	<region name="malaga">
+		<display-name>Málaga</display-name>
+		<display-name language="ca">Màlaga</display-name>
+	</region>
+	
+	<region name="murcia">
+		<display-name>Murcia</display-name>
+		<display-name language="ca">Múrcia</display-name>
+	</region>
+	
+	<region name="orense">
+		<display-name>Ourense</display-name>
+		<display-name language="es">Orense</display-name>
+	</region>
+	
+	<region name="palmas">
+		<display-name>Las Palmas</display-name>
+		<display-name language="ca">Les Palmes</display-name>
+	</region>
+	
+	<region name="pontevedra">
+		<display-name>Pontevedra</display-name>
+	</region>
+	
+	<region name="santa-cruz-de-tenerife">
+		<display-name>Santa Cruz de Tenerife</display-name>
+	</region>
+	
+	<region name="sevilla">
+		<display-name>Sevilla</display-name>
+	</region>
+	
+	<region name="tarragona">
+		<inside>catalunya</inside>
+		<display-name>Tarragona</display-name>
+	</region>
+	
+	<region name="toledo">
+		<display-name>Toledo</display-name>
+	</region>
+	
+	<region name="valencia">
+		<display-name>València</display-name>
+		<display-name language="es">Valencia</display-name>
+	</region>
+	
+	<region name="vizcaya">
+		<display-name>Vizcaya</display-name>
+		<display-name language="ca">Viscaia</display-name>
+	</region>
+	
+	<region name="zaragoza">
+		<display-name>Zaragoza</display-name>
+		<display-name language="ca">Saragossa</display-name>
+	</region>
+	
+</regions>

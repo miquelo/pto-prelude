@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<regions
+	xmlns="http://xmlns.preparatusopos.net/xml/ns/geography"
+	version="1.0">
+	
+	<region name="barcelona-city">
+		<inside>barcelona</inside>
+		<display-name>Barcelona</display-name>
+	</region>
+	
+	<region name="madrid-city">
+		<inside>madrid</inside>
+		<display-name>Madrid</display-name>
+	</region>
+	
+</regions>

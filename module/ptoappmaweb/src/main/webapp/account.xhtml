@@ -1,8 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:v="http://xmlns.jcp.org/jsf/composite/view"
+	xmlns:t="http://faces.preparatusopos.net/taglib/toolkit"
 	template="/WEB-INF/templates/page.xhtml">
 	
-	<ui:param name="sectionName" value="pepe"/>
+	<ui:param name="sectionName" value="account"/>
+	
+	<ui:define name="content">
+		<h:outputScript library="javax.faces" name="jsf.js"/>
+		<h:outputStylesheet library="theme" name="${theme}/style/grid.css"/>
+		<h:outputStylesheet library="theme" name="${theme}/style/form.css"/>
+		<h:outputStylesheet library="theme" name="${theme}/style/upload-photo.css"/>
+		<h:outputStylesheet library="theme" name="${theme}/style/select-one-menu.css"/>
+	
+		<h:panelGroup layout="block" styleClass="panel screen">
+			<jsf:element p:elementName="h1">
+				<h:outputText value="${messages.accountPanelName}"/>
+			</jsf:element>
+			<h:panelGroup id="accountPanel" layout="block">
+				<h:panelGroup layout="block" styleClass="grid column">
+				
+					<h:form id="photoForm" enctype="multipart/form-data" styleClass="item centered upload-photo">
+						<h:outputLabel id="imageLabel" for="input">
+							<h:panelGroup id="photo">
+								<h:graphicImage rendered="${accountBean.uploadingPhoto}" library="theme" name="${theme}/image/spinner.svg" width="180" height="180" styleClass="uploading"/>
+								<h:graphicImage rendered="${not accountBean.uploadingPhoto and empty userBean.photoFileName}" library="theme" name="${theme}/image/no-photo.svg" width="180" height="180"/>
+								<h:graphicImage rendered="${not accountBean.uploadingPhoto and not empty userBean.photoFileName}" library="fileStorage" name="${userBean.photoFileName}" width="180" height="180"/>
+							</h:panelGroup>
+						</h:outputLabel>
+						<h:inputFile id="input" readonly="true"> <!-- p:multiple="multiple" -->
+							<t:uploadFile event="change" files="${accountBean.photos}" listener="${accountBean.uploadPhoto}" render="menuProfilePhoto photoForm:photo"/>
+						</h:inputFile>
+					</h:form>
+					
+					<jsf:element p:elementName="hr"/>
+					
+					<v:contextualSection legend="${messages.accountPresonalDataLegend}">
+						<h:form id="personalDataForm">
+							<t:panelField styleClass="item grid column">
+								<h:inputText id="memberNameInput" value="${accountBean.memberName}" size="12" maxlength="400" styleClass="item" p:placeholder="${messages.memberNamePlaceholder}">
+									<f:ajax listener="${userBean.memberInfoChanged}" render="menuProfilePhoto"/>
+								</h:inputText>
+							</t:panelField>
+							<t:panelField styleClass="item grid column">
+								<h:inputText id="memberSurnameInput" value="${accountBean.memberSurname}" size="12" maxlength="400" styleClass="item" p:placeholder="${messages.memberSurnamePlaceholder}">
+									<f:ajax listener="${userBean.memberInfoChanged}"/>
+								</h:inputText>
+							</t:panelField>
+							<t:panelField styleClass="item grid column">
+								<t:selectOneMenu id="provincesInput" value="${accountBean.provinceRef}" var="item" styleClass="item" buttonClass="input">
+									<f:facet name="content">
+										<h:outputText value="${item.label}"/>
+									</f:facet>
+									<f:selectItem itemLabel="${messages.emptyProvinceOption}" noSelectionOption="true"/>
+									<f:selectItems value="${accountBean.provinces}" var="province" itemValue="${province.ref}" itemLabel="${province.displayName}"/>
+									<f:converter converterId="regionRef"/>
+									<f:ajax execute="@this" listener="${accountBean.changeProvince}" render="localitiesInput"/>
+								</t:selectOneMenu>
+							</t:panelField>
+							<t:panelField styleClass="item grid column">
+								<t:selectOneMenu id="localitiesInput" value="${accountBean.localityRef}" var="item" styleClass="item" buttonClass="input">
+									<f:facet name="content">
+										<h:outputText value="${item.label}"/>
+									</f:facet>
+									<f:selectItem itemLabel="${messages.emptyLocalityOption}" noSelectionOption="true"/>
+									<f:selectItems value="${accountBean.localities}" var="locality" itemValue="${locality.ref}" itemLabel="${locality.displayName}"/>
+									<f:converter converterId="regionRef"/>
+									<f:ajax execute="@this" listener="${accountBean.changeLocality}" render="provincesInput"/>
+								</t:selectOneMenu>
+							</t:panelField>
+						</h:form>
+					</v:contextualSection>
+					
+				</h:panelGroup>
+			</h:panelGroup>
+		</h:panelGroup>
+		
+	</ui:define>
 	
 </ui:composition>

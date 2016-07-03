@@ -11,14 +11,18 @@
 	
 	<h:doctype rootElement="html"/>
 	
+	<!-- Contracts may be interesting -->
+	<!-- http://www.oracle.com/webfolder/technetwork/tutorials/obe/java/ResourceLibraryContract/resourceLibraryContract.html -->
 	<c:set var="theme" value="basic"/>
 	
 	<t:outputIcon library="theme" name="${theme}/image/favicon.png" type="image/png"/>
 	<h:outputStylesheet library="theme" name="${theme}/style/main.css"/>
 	<h:outputStylesheet library="theme" name="${theme}/style/menu.css"/>
+	<h:outputStylesheet library="theme" name="${theme}/style/ajax-loading.css"/>
 	<h:outputScript library="script" name="menu.js"/>
 	<h:outputScript library="javax.faces" name="jsf.js"/>
 	<h:outputScript library="net.preparatusopos.faces" name="script/fix-ajax-viewstate.js"/>
+	<h:outputScript library="net.preparatusopos.faces" name="script/ajax-loading.js"/>
 	
 	<jsf:element p:elementName="html" p:xmlns="http://www.w3.org/1999/xhtml">
 		
@@ -35,35 +39,62 @@
 		
 			<jsf:element p:elementName="header">
 				<jsf:element p:elementName="nav" p:class="menu-mobile">
-					<h:outputLink value="javascript:" onclick="net.preparatusopos.appmaweb.faces.menu.show(event)">
-						<h:graphicImage library="theme" name="${theme}/image/hamburger.svg"/>
-					</h:outputLink>
+					<jsf:element p:elementName="div">
+						<h:outputLink value="javascript:" onclick="net.preparatusopos.appmaweb.menu.show(event)">
+							<h:graphicImage library="theme" name="${theme}/image/hamburger.svg"/>
+						</h:outputLink>
+					</jsf:element>
 				</jsf:element>
 				<jsf:element p:elementName="nav" p:class="menu-items">
-					<h:link outcome="home">
-						<h:outputFormat value="${messages.applicationTitle}">
-							<f:param value="${messages.domainTitle}"/>
-						</h:outputFormat>
-					</h:link>
-					<h:link outcome="account" onclick="net.preparatusopos.appmaweb.faces.menu.account(event)">
-						<h:graphicImage library="theme" name="${theme}/image/no-photo.svg"/>
-						<h:outputText value="${userBean.name}" title="${userBean.name}"/>
-					</h:link>
-					<jsf:element p:elementName="ul" rendered="${not userBean.logged}">
-						<v:menuItem outcome="login" value="${messages.loginActionName}" current="${sectionName == 'login'}"/>
-						<v:menuItem outcome="register" value="${messages.registerActionName}" current="${sectionName == 'register'}"/>
+					<jsf:element p:elementName="div">
+						<h:link outcome="home">${messages.domainTitle}</h:link>
 					</jsf:element>
-					<jsf:element p:elementName="ul">
-						<v:menuItem outcome="account" value="${messages.accountActionName}" current="${sectionName == 'account'}" styleClass="rendered-desktop"/>
-						<v:menuItem outcome="logout" value="${messages.logoutActionName}" current="${sectionName == 'logout'}"/>
+					<jsf:element p:elementName="div">
+						<h:link outcome="account" rendered="${userBean.logged}" onclick="net.preparatusopos.appmaweb.menu.account(event)">
+							<h:panelGroup id="menuProfilePhoto">
+								<h:graphicImage rendered="${accountBean.uploadingPhoto}" library="theme" name="${theme}/image/spinner.svg" width="32" height="32" styleClass="uploading"/>
+								<h:graphicImage rendered="${not accountBean.uploadingPhoto and empty userBean.photoFileName}" library="theme" name="${theme}/image/no-photo.svg" width="32" height="32"/>
+								<h:graphicImage rendered="${not accountBean.uploadingPhoto and not empty userBean.photoFileName}" library="fileStorage" name="${userBean.photoFileName}" width="32" height="32"/>
+								<h:outputText value="${userBean.name}" title="${userBean.name}"/>
+							</h:panelGroup>
+						</h:link>
+					</jsf:element>
+					<jsf:element p:elementName="div">
+						<jsf:element p:elementName="ul">
+							<v:menuItem outcome="help" value="${messages.goToHelpActionName}" current="${sectionName == 'help'}"/>
+							<v:menuItem outcome="login" value="${messages.goToLoginActionName}" current="${sectionName == 'login'}" rendered="${not userBean.logged}"/>
+							<v:menuItem outcome="register" value="${messages.goToRegisterActionName}" current="${sectionName == 'register'}" rendered="${not userBean.logged}"/>
+						</jsf:element>
+					</jsf:element>
+					<jsf:element p:elementName="div">
+						<h:panelGroup rendered="${userBean.logged}">
+							<jsf:element p:elementName="div">
+								<jsf:element p:elementName="span">&#x25b2;</jsf:element>
+							</jsf:element>
+							<jsf:element p:elementName="ul" rendered="${userBean.logged}">
+								<v:menuItem outcome="account" value="${messages.accountActionName}" current="${sectionName == 'account'}" desktopOnly="true"/>
+								<v:menuItem outcome="logout" value="${messages.goToLogoutActionName}" current="${sectionName == 'logout'}"/>
+							</jsf:element>
+						</h:panelGroup>
 					</jsf:element>
 				</jsf:element>
 			</jsf:element>
 			
 			<jsf:element p:elementName="section">
+				<jsf:element p:elementName="div">
+					<ui:insert name="content"/>
+				</jsf:element>
 			</jsf:element>
 			
 			<jsf:element p:elementName="footer">
+				<h:link outcome="print">
+					<f:param name="d" value="terms-and-conditions"/>
+					<h:outputText value="${messages.goToTermsAndConditionsActionName}"/>
+				</h:link>
+			</jsf:element>
+			
+			<jsf:element p:elementName="div" p:class="ajax-loading">
+				<h:graphicImage library="theme" name="${theme}/image/spinner.svg" width="120" height="120"/>
 			</jsf:element>
 			
 		</h:body>

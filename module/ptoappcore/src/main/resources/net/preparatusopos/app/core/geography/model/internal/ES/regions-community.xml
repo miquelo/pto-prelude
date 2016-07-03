@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<regions
+	xmlns="http://xmlns.preparatusopos.net/xml/ns/geography"
+	version="1.0">
+	
+	<region name="catalunya">
+		<display-name>Cataluña</display-name>
+		<display-name language="ca">Catalunya</display-name>
+	</region>
+	
+</regions>

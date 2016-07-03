@@ -1,8 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:t="http://faces.preparatusopos.net/taglib/toolkit"
 	template="/WEB-INF/templates/page.xhtml">
 	
 	<ui:param name="sectionName" value="login"/>
+	
+	<ui:define name="content">
+		<h:outputStylesheet library="theme" name="${theme}/style/grid.css"/>
+		<h:outputStylesheet library="theme" name="${theme}/style/form.css"/>
+		
+		<h:panelGroup layout="block" styleClass="panel screen action">
+			<jsf:element p:elementName="h1">
+				<h:outputText value="${messages.loginPanelName}"/>
+			</jsf:element>
+			<h:panelGroup id="loginPanel" layout="block">
+			
+				<!-- Empty status -->
+				<h:form id="loginForm" rendered="${empty loginBean.status}" styleClass="grid column">
+					<t:panelField id="mailAddress" styleClass="item grid column" errorClass="error">
+						<h:inputText id="mailAddressInput" value="${loginBean.mailAddress}" required="true" requiredMessage="${messages.validationMailAddressRequired}" validatorMessage="${messages.validationMailAddressWellFormed}" size="28" styleClass="item" p:type="email" p:placeholder="${messages.mailAddressPlaceholder}">
+							<f:validateRegex pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"/>
+							<t:removeClass event="keypress" styleClass="error" target="loginForm:mailAddress"/>
+						</h:inputText>
+						<h:messages for="mailAddressInput" styleClass="item messages" errorClass="error"/>
+					</t:panelField>
+					<t:panelField id="password" styleClass="item grid column" errorClass="error">
+						<h:inputSecret id="passwordInput" value="${loginBean.password}" required="true" requiredMessage="${messages.validationPasswordRequired}" size="22" styleClass="item" p:placeholder="${messages.passwordPlaceholder}">
+							<t:removeClass event="keypress" styleClass="error" target="loginForm:password"/>
+						</h:inputSecret>
+						<h:messages for="passwordInput" styleClass="item messages" errorClass="error"/>
+					</t:panelField>
+					
+					<h:panelGroup layout="block" styleClass="item grid column">
+						<h:commandButton value="${messages.loginActionName}" action="${loginBean.perform}" styleClass="item"/>
+					</h:panelGroup>
+					
+					<h:panelGroup layout="block" styleClass="item grid column">
+						<h:panelGroup layout="block" styleClass="item centered">
+							<jsf:element p:elementName="p">
+								<h:outputText value="${messages.passwordForgottenQuestion}"/>
+								<jsf:element p:elementName="br"/>
+								<h:link outcome="password-restore">
+									<h:outputText value="${messages.goToPasswordRestoreActionName}"/>
+								</h:link>
+							</jsf:element>
+							<jsf:element p:elementName="p">
+								<h:outputText value="${messages.notRegisteredQuestion}"/>
+								<jsf:element p:elementName="br"/>
+								<h:link outcome="register">
+									<h:outputText value="${messages.goToRegisterHereActionName}"/>
+								</h:link>
+							</jsf:element>
+						</h:panelGroup>
+					</h:panelGroup>
+				</h:form>
+				
+				<!-- Status 'fail' -->
+				<h:outputText rendered="${loginBean.status == 'fail'}" value="${messages.loginFailed}"/>
+				
+				<f:event type="preRenderView" listener="${loginBean.loginCheck}"/>
+			</h:panelGroup>
+		</h:panelGroup>
+	</ui:define>
 	
 </ui:composition>

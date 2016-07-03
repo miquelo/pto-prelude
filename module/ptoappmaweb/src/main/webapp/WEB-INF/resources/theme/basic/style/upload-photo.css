@@ -1,0 +1,19 @@
+form.upload-photo {
+	padding: 8pt;
+}
+
+form.upload-photo > label {
+	display: inline-block;
+	border-radius: 1pt;
+	border: #a0a0a0 1pt solid;
+	background: white;
+	cursor: pointer;
+}
+
+form.upload-photo > label > span > img {
+	vertical-align: bottom;
+}
+
+form.upload-photo > input[type=file] {
+	display: none;
+}

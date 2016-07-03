@@ -5,12 +5,12 @@
 apt-get install -y openjdk-7-jdk unzip
 
 # Installing GlassFish Server
-if [ ! -f /vagrant/repo/glassfish-4.1.1.zip ]; then
+if [ ! -f /vagrant/repo/glassfish-4.1.1-b01-10_06_2015.zip ]; then
 mkdir /vagrant/repo
-echo 'Downloading GlassFish Server...'
+echo 'Downloading GlassFish Server (Nightly build)...'
 wget -P /vagrant/repo \
-http://download.java.net/glassfish/4.1.1/release/glassfish-4.1.1.zip 2>> \
-/dev/null
+http://download.oracle.com/glassfish/4.1.1/nightly/\
+glassfish-4.1.1-b01-10_06_2015.zip 2>> /dev/null
 fi
 
 echo 'Installing GlassFish Server...'

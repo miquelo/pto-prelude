@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<countries
+	xmlns="http://xmlns.preparatusopos.net/xml/ns/geography"
+	version="1.0">
+	
+	<country code="ES">
+		<display-name>Spain</display-name>
+		<display-name language="ca">Espanya</display-name>
+		<display-name language="es">España</display-name>
+	</country>
+	
+</countries>

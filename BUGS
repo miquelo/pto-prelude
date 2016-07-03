@@ -1,0 +1,3 @@
+* El "selectOneRadio" envía una petición AJAX de tipo "valueChange" aunque se
+  haya hecho click sobre el radio button seleccionado.
+

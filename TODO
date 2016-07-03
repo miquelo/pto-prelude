@@ -1,28 +1,14 @@
-* setup.py
-  - Pintar la lista de comandos en el help y quitarlo del mensaje de
-    comando desconocido. Procurar hacerlo en el orden deseado.
-  - Update debe insertar TODOS los componentes eliminados.
-  - ExecutionPlan que da acceso al plan y que permite ejecutarlo, pero que
-    oculta el objeto Component.
-  - Pasar de recursivo a iterativo con yield.
-  - Futuro: Estandarización y externalización.
-
-* Los beans de presentación deben ser serializables.
-
-* Para hacer una transición "post-render", hay que renderizar el script. No
-  sirve <f:ajax onevent="..."/>.
-
-* Clase útil para las "style classes" de JSF.
-
 * ¿Nos hemos olvidado de la transaccionalidad del Realm SQL?.
 
 * Sistema de pagos:
   https://developer.paypal.com/docs/classic/paypal-payments-pro/\
   integration-guide/WPDirectPayment/
-
-* Descarga de la fuente (tipo de letra) directamente de Google.
-  https://www.google.com/fonts#UsePlace:use/Collection:Open+Sans
-
+  
+* Sistema de grabación de preparaciones:
+  - http://www.html5rocks.com/en/tutorials/getusermedia/intro/
+  - https://webrtc.org/
+  - http://www.html5rocks.com/en/tutorials/file/filesystem/
+  
 * Remove (Undeploy): Vigila con las dependencias por qué si no, falla. Hacer
   borrado y creación en fases distintas.
 
@@ -34,10 +20,20 @@
     -> 401 Unauthorized
     Para empezar, en ambos casos debe ser "401 Unauthorized".
   - No SSL entre Apache y Glassfish
-  - http://www.devwithimagination.com/2015/08/13/apache-as-a-reverse-proxy-to-\
-    glassfish/
+  - http://www.devwithimagination.com/2015/08/13/apache-as-a-reverse-proxy-to-glassfish/
   - https://confluence.atlassian.com/doc/using-apache-with-mod_proxy-173669.html
 
 * Implementar manejo de errores HTTP en la aplicación WEB con
   ExceptionHandlerFactory indicado en faces-config.xml.
+
+* Refactor: File storage (RA) -> File device (RA)
+
+* Refactor: File y Geolocation en esquemas de BD distintos de Domain.
+
+* Separar Geography de Geolocation
+  - Geography puede prescindir de adaptador de recurso. Puede quedar confinado
+    en el dominio
+  - Geolocation entrega coordenadas a partir de entradas no estructuradas
+  - Geography depende de Geolocation para establecer las coordenadas de las
+    direcciones que registra.
 

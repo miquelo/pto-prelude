@@ -4,10 +4,8 @@ if (typeof net.preparatusopos == "undefined")
 	net.preparatusopos = {};
 if (typeof net.preparatusopos.appmaweb == "undefined")
 	net.preparatusopos.appmaweb = {};
-if (typeof net.preparatusopos.appmaweb.faces == "undefined")
-	net.preparatusopos.appmaweb.faces = {};
 
-net.preparatusopos.appmaweb.faces.menu = function()
+net.preparatusopos.appmaweb.menu = function()
 {
 
 var EXPANDED_CLASS = "expanded";
@@ -33,7 +31,7 @@ function forEachMobileMenuItemsAccount(fn)
 	if (window.matchMedia("only screen and (max-width: 640px)").matches)
 	{
 		var menuItemsAccount = document.querySelectorAll(
-				"nav.menu-items > ul:nth-of-type(2)");
+				"nav.menu-items > div:nth-of-type(4)");
 		for (var i = 0; i < menuItemsAccount.length; ++i)
 			fn(menuItemsAccount.item(i));
 	}
@@ -44,7 +42,7 @@ function forEachDesktopMenuItemsAccount(fn)
 	if (window.matchMedia("only screen and (min-width: 640px)").matches)
 	{
 		var menuItemsAccount = document.querySelectorAll(
-				"nav.menu-items > ul:nth-of-type(2)");
+				"nav.menu-items > div:nth-of-type(4)");
 		for (var i = 0; i < menuItemsAccount.length; ++i)
 			fn(menuItemsAccount.item(i));
 	}
@@ -126,7 +124,7 @@ function showAccountMenu(menuItemsAccount)
 	{
 		menuItemsAccount.classList.add(VISIBLE_CLASS);
 	},
-	80);
+	20);
 };
 
 function show(event)

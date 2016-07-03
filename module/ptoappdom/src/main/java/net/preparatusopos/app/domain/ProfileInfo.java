@@ -1,7 +1,13 @@
 package net.preparatusopos.app.domain;
 
+import java.beans.ConstructorProperties;
 import java.io.Serializable;
 
+/**
+ * Profile info.
+ * 
+ * @author Miquel Ferran &lt;miquel.ferran.gonzalez@gmail.com&gt;
+ */
 public class ProfileInfo
 implements Serializable
 {
@@ -9,18 +15,33 @@ implements Serializable
 	
 	private ProfileType type;
 	
-	public ProfileInfo()
+	@ConstructorProperties({
+		"type"
+	})
+	public ProfileInfo(ProfileType type)
 	{
-		type = null;
+		this.type = type;
 	}
 
 	public ProfileType getType()
 	{
 		return type;
 	}
-
-	public void setType(ProfileType type)
+	
+	@Override
+	public int hashCode()
 	{
-		this.type = type;
+		return type.hashCode();
+	}
+	
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (obj != null && obj instanceof ProfileInfo)
+		{
+			ProfileInfo info = (ProfileInfo) obj;
+			return type.equals(info.type);
+		}
+		return false;
 	}
 }

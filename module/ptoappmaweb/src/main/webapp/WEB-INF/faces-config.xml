@@ -12,6 +12,15 @@
 			<base-name>net.preparatusopos.app.ma.web.Messages</base-name>
 			<var>messages</var>
 		</resource-bundle>
+		<resource-bundle>
+			<base-name>net.preparatusopos.app.ma.web.ProfileCountryFieldText</base-name>
+			<var>profileCountryFieldText</var>
+		</resource-bundle>
+		<resource-bundle>
+			<base-name>net.preparatusopos.app.ma.web.ProfileSpecializationText</base-name>
+			<var>profileSpecializationText</var>
+		</resource-bundle>
+		<resource-handler>net.preparatusopos.app.ma.web.application.FileStorageResourceHandler</resource-handler>
 	</application>
 	
 	<navigation-rule>
@@ -23,12 +32,6 @@
 		<navigation-case>
 			<from-outcome>login</from-outcome>
 			<to-view-id>/login.xhtml</to-view-id>
-			<redirect>
-				<view-param>
-					<name>r</name>
-					<value>home.html</value>
-				</view-param>
-			</redirect>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>logout</from-outcome>
@@ -39,8 +42,16 @@
 			<to-view-id>/register.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
+			<from-outcome>help</from-outcome>
+			<to-view-id>/help.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
 			<from-outcome>account</from-outcome>
 			<to-view-id>/account.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>print</from-outcome>
+			<to-view-id>/print.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	
@@ -50,6 +61,14 @@
 	
 	<navigation-rule>
 		<from-view-id>/login.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>register</from-outcome>
+			<to-view-id>/register.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>password-restore</from-outcome>
+			<to-view-id>/password-restore.xhtml</to-view-id>
+		</navigation-case>
 		<navigation-case>
 			<from-outcome>register</from-outcome>
 			<to-view-id>/register.xhtml</to-view-id>

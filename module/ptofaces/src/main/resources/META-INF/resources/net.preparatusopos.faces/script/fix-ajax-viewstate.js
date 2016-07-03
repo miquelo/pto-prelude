@@ -10,13 +10,14 @@ net.preparatusopos.faces.fixAjaxViewState = function()
 
 function getViewState(responseXML)
 {
-	var updates = responseXML.getElementsByTagName("update");
-	for (var i in updates)
+	var updateNodes = responseXML.getElementsByTagName("update");
+	for (var i = 0; i < updateNodes.length; ++i)
 	{
-		var update = updates[i];
-		if ("id" in update && update.id.match(
+		var updateNode = updateNodes.item(i);
+		var updateId = updateNode.getAttribute("id");
+		if (updateId != null && updateId.match(
 					/^([\w]+:)?javax\.faces\.ViewState(:[0-9]+)?$/))
-			return update.textContent || updates[i].innerText;
+			return updateNode.textContent || updateNode.innerText;
 	}
 	return null;
 };

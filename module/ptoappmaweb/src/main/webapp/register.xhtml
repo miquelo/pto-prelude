@@ -1,8 +1,144 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:t="http://faces.preparatusopos.net/taglib/toolkit"
 	template="/WEB-INF/templates/page.xhtml">
 	
 	<ui:param name="sectionName" value="register"/>
+	
+	<ui:define name="content">
+		<h:outputStylesheet library="theme" name="${theme}/style/grid.css"/>
+		<h:outputStylesheet library="theme" name="${theme}/style/form.css"/>
+		<h:outputStylesheet library="theme" name="${theme}/style/select-one-menu.css"/>
+		<h:outputStylesheet library="theme" name="${theme}/style/mode-selector.css"/>
+		
+		<h:panelGroup layout="block" styleClass="panel screen action">
+			<jsf:element p:elementName="h1">
+				<h:outputText value="${messages.registerPanelName}"/>
+			</jsf:element>
+			<h:panelGroup id="registerPanel" layout="block">
+			
+				<!-- State 'begin' -->
+				<h:form id="registerForm" rendered="${registerBean.stateName == 'begin'}" styleClass="grid column" p:autocomplete="off">
+					<t:panelField styleClass="item grid column">
+						<h:selectOneRadio value="${registerBean.profileRole}" valueChangeListener="${registerBean.profileRoleChange}" styleClass="item grid column mode-selector">
+							<f:selectItem itemValue="CANDIDATE" itemLabel="${messages.profileRoleCandidate}"/>
+							<f:selectItem itemValue="TRAINER" itemLabel="${messages.profileRoleTrainer}"/>
+							<f:ajax render="registerForm:profileCountryField registerForm:profileSpecialization registerForm:profileFields registerForm:commands"/>
+						</h:selectOneRadio>
+					</t:panelField>
+					<t:panelField id="profileCountryField" styleClass="item grid column" errorClass="error">
+						<t:selectOneMenu id="profileCountryFieldInput" binding="${registerBean.profileCountryFieldInput}" value="${registerBean.profileCountryField}" valueChangeListener="${registerBean.profileCountryFieldChange}" required="true" requiredMessage="${messages.validationProfileCountryFieldRequired}" hideNoSelectionOption="true" var="item" styleClass="item" buttonClass="input">
+							<f:facet name="content">
+								<h:outputText value="${item.label}"/>
+							</f:facet>
+							<f:selectItem itemLabel="${profileCountryFieldText.EMPTY}" noSelectionOption="true"/>
+							<f:selectItems value="${registerBean.profileCountryFields}" var="profileCountryField" itemValue="${profileCountryField}" itemLabel="${profileCountryFieldText[profileCountryField]}"/>
+							<f:converter converterId="profileCountryField"/>
+							<f:ajax render="registerForm:profileCountryField registerForm:profileSpecialization registerForm:profileFields registerForm:commands"/>
+						</t:selectOneMenu>
+						<h:messages for="profileCountryFieldInput" styleClass="item messages" errorClass="error"/>
+					</t:panelField>
+					<h:panelGroup id="profileSpecialization" layout="block">
+						<t:panelField rendered="${not empty registerBean.profileSpecializations}" styleClass="item grid column">
+							<t:selectOneMenu value="${registerBean.profileSpecialization}" binding="${registerBean.profileSpecializationInput}" var="item" styleClass="item" buttonClass="input">
+								<f:facet name="content">
+									<h:outputText value="${item.label}"/>
+								</f:facet>
+								<f:selectItem itemLabel="${profileSpecializationText.EMPTY}" noSelectionOption="true"/>
+								<f:selectItems value="${registerBean.profileSpecializations}" var="profileSpecialization" itemValue="${profileSpecialization}" itemLabel="${profileSpecializationText[profileSpecialization]}"/>
+							</t:selectOneMenu>
+						</t:panelField>
+					</h:panelGroup>
+					<h:panelGroup id="profileFields" layout="block" styleClass="item grid column">
+						<h:panelGroup rendered="${not empty registerBean.profileCountryField}" layout="block" styleClass="item grid column">
+							<jsf:element p:elementName="hr"/>
+							<t:panelField id="mailAddress" rendered="${registerBean.profileRole == 'CANDIDATE'}" styleClass="item grid column" errorClass="error">
+								<h:inputText id="mailAddressInput" binding="${registerBean.mailAddressInput}" value="${registerBean.mailAddress}" required="true" requiredMessage="${messages.validationMailAddressRequired}" validatorMessage="${messages.validationMailAddressWellFormed}" size="28" styleClass="item" p:type="email" p:placeholder="${messages.mailAddressPlaceholder}">
+									<f:validateRegex pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"/>
+									<t:removeClass event="keypress" styleClass="error" target="registerForm:mailAddress"/>
+								</h:inputText>
+								<h:messages for="mailAddressInput" styleClass="item messages" errorClass="error"/>
+							</t:panelField>
+							<t:panelField id="mailUsernameDomain" rendered="${not empty registerBean.mailDomains}" styleClass="item grid column" errorClass="error">
+								<h:panelGroup styleClass="item grid row">
+									<h:inputText id="mailUsernameInput" binding="${registerBean.mailUsernameInput}" value="${registerBean.mailUsername}" required="true" requiredMessage="${messages.validationMailUsernameRequired}" validatorMessage="${messages.validationMailUsernameWellFormed}" size="10" styleClass="item" p:placeholder="${messages.mailUsernamePlaceholder}">
+										<f:validateRegex pattern="^[A-Za-z0-9._%+-]+$"/>
+										<t:removeClass event="keypress" styleClass="error" target="registerForm:mailUsernameDomain"/>
+									</h:inputText>
+									<h:outputText value="@" styleClass="item output"/>
+									<t:selectOneMenu binding="${registerBean.mailDomainInput}" value="${registerBean.mailDomain}" required="true" styleClass="item expand" buttonClass="input">
+										<f:selectItems value="${registerBean.mailDomains}" var="mailDomain" itemValue="${mailDomain}" itemLabel="${mailDomain}"/>
+									</t:selectOneMenu>
+								</h:panelGroup>
+								<h:messages for="mailUsernameInput" styleClass="item messages" errorClass="error"/>
+							</t:panelField>
+							<t:panelField id="password" styleClass="item grid column" errorClass="error">
+								<h:inputSecret id="passwordInput" binding="${registerBean.passwordInput}" value="${registerBean.password}" required="true" requiredMessage="${messages.validationPasswordRequired}" validatorMessage="${messages.validationPasswordWellFormed}" size="22" styleClass="item" p:placeholder="${messages.newPasswordPlaceholder}">
+									<f:validateLength minimum="8"/>
+									<t:removeClass event="keypress" styleClass="error" target="registerForm:password"/>
+								</h:inputSecret>
+								<h:messages for="passwordInput" styleClass="item messages" errorClass="error"/>
+								<jsf:element p:elementName="ul" p:class="item messages hint">
+									<jsf:element p:elementName="li">
+										<h:outputText value="${messages.passwordHint}"/>
+									</jsf:element>
+								</jsf:element>
+							</t:panelField>
+						</h:panelGroup>
+					</h:panelGroup>
+					
+					<h:panelGroup layout="block" styleClass="item grid column">
+						<h:commandButton value="${messages.registerActionName}" styleClass="item">
+							<f:ajax execute="@form" listener="${registerBean.perform}" render="registerPanel"/>
+						</h:commandButton>
+					</h:panelGroup>
+					
+					<h:panelGroup layout="block" styleClass="item grid column">
+						<h:panelGroup layout="block" styleClass="item">
+							<t:panelFormat layout="paragraph" text="${messages.registerAlreadyMemberQuestion}">
+								<f:param>
+									<h:link outcome="login">
+										<h:outputText value="${messages.registerAlreadyMemberQuestionAccess}"/>
+									</h:link>
+								</f:param>
+							</t:panelFormat>
+							<t:panelFormat layout="paragraph" text="${messages.registerAcceptance}">
+								<f:param>
+									<h:link outcome="print">
+										<f:param name="d" value="terms-and-conditions"/>
+										<h:outputText value="${messages.registerAcceptanceTermsAndConditions}"/>
+									</h:link>
+								</f:param>
+								<f:param>
+									<h:link outcome="print">
+										<f:param name="d" value="privacy-policy"/>
+										<h:outputText value="${messages.registerAcceptancePrivacyPolicy}"/>
+									</h:link>
+								</f:param>
+							</t:panelFormat>
+						</h:panelGroup>
+					</h:panelGroup>
+				</h:form>
+				
+				<!-- State 'requested' -->
+				<t:panelFormat layout="block" text="${messages.registerMailSent}" rendered="${registerBean.stateName == 'requested'}">
+					<f:param>
+						<h:outputText styleClass="text-mail" value="${registerBean.mailAddress}"/>
+					</f:param>
+				</t:panelFormat>
+				
+				<!-- State 'verified' -->
+				<h:panelGroup layout="block" rendered="${registerBean.stateName == 'verified'}">
+					<f:event type="preRenderView" listener="${registerBean.login}"/>
+				</h:panelGroup>
+			</h:panelGroup>
+		
+		</h:panelGroup>
+	</ui:define>
 	
 </ui:composition>

@@ -1,17 +1,11 @@
 package net.preparatusopos.app.core.util;
 
-import java.security.MessageDigest;
-import java.security.SecureRandom;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.logging.Logger;
+import java.util.Random;
 
-import javax.persistence.EntityManager;
 import javax.sql.DataSource;
 
-import net.preparatusopos.app.core.model.Member;
-import net.preparatusopos.app.domain.NoSuchMemberException;
-import net.preparatusopos.security.auth.PTOPrincipal;
 import net.preparatusopos.security.auth.spi.PTORealmConnection;
 import net.preparatusopos.security.auth.spi.PTORealmConnectionException;
 import net.preparatusopos.security.auth.sql.PTOSQLRealmConnection;
@@ -19,22 +13,23 @@ import net.preparatusopos.security.auth.sql.PTOSQLRealmSettings;
 
 public class Util
 {
-	private static final String SECURE_ALGORITHM = "SHA1PRNG";
-	private static final String HASH_ALGORITHM = "SHA-1";
-	
 	private static final String SCHEMA = "PTOAPP";
 	private static final String VW_MEMBERGROUP = "VW_MEMBERGROUP";
 	private static final String TB_MEMBERCRED = "TB_MEMBERCRED";
 	
-	private static SecureRandom random = null;
+	private static Random random;
 	
 	private Util()
 	{
 	}
 	
-	public static Logger getLogger()
-	{
-		return Logger.getLogger(" net.preparatusopos.app.domain");
+	public static String createRef(int size) {
+		if (random == null)
+			random = new Random();
+		StringBuilder ref = new StringBuilder();
+		while (ref.length() < size)
+			ref.append(Integer.toHexString(random.nextInt(0x10)));
+		return ref.toString();
 	}
 	
 	public static PTORealmConnection getRealmConnection(
@@ -58,22 +53,6 @@ public class Util
 		}
 	}
 	
-	public static byte[] createToken()
-	{
-		try
-		{
-			if (random == null)
-				random = SecureRandom.getInstance(SECURE_ALGORITHM);
-			String randomNum = String.valueOf(random.nextInt());
-			MessageDigest sha1 = MessageDigest.getInstance(HASH_ALGORITHM);
-			return sha1.digest(randomNum.getBytes());
-		}
-		catch (Exception exception)
-		{
-			throw new RuntimeException(exception);
-		}
-	}
-	
 	public static String normalizeMailAddress(String mailAddr)
 	{
 		String[] parts = mailAddr.split("@");
@@ -83,17 +62,7 @@ public class Util
 			msg.append(mailAddr).append(" is not a valid mail address");
 			throw new IllegalArgumentException(msg.toString());
 		}
-		
 		String username = parts[0].replace(".", "");
 		return String.format("%s@%s", username, parts[1]);
-	}
-	
-	public static Member findMember(EntityManager em, PTOPrincipal principal)
-	throws NoSuchMemberException
-	{
-		Member member = em.find(Member.class, principal.getUserID());
-		if (member == null)
-			throw new NoSuchMemberException(principal.getUserID());
-		return member;
 	}
 }

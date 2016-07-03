@@ -5,4 +5,12 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://www.oracle.com/webfolder/technetwork/jsc/xml/ns/javaee/web-facesconfig_2_2.xsd"
 	version="2.2">
 	
+	<application>
+		<navigation-handler>net.preparatusopos.faces.application.FormLoginNavigationHandler</navigation-handler>
+	</application>
+	
+	<factory>
+		<partial-view-context-factory>net.preparatusopos.faces.context.UploadFilePartialViewContextFactory</partial-view-context-factory>
+	</factory>
+	
 </faces-config>
