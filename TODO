@@ -35,15 +35,8 @@
   - Geography depende de Geolocation para establecer las coordenadas de las
     direcciones que registra.
     
-* CAMBIO DE PARADIGMA EN LA INFRAESTRUCTURA:
+* CAMBIO DE PARADIGMA EN LA INFRAESTRUCTURA (JEEMI):
   - Volver a prestigiar a JavaEE.
-    La tendecia es usar Java (JVM) para la lógica de dominio (con cierto grado
-    de seriedad) y disponer del resto de servicios como SaaS. Además, se quiere
-    disponer de sistemas de clusterización y balanceado de carga ofrecidos por
-    el proveedor de infrastuctura. Y, finalmente, se quieren "containerizar"
-    los procesos de JVM corrrespondientes a la lógica de dominio.
-    Bien, todo esto ya lo ofrecen servidores de aplicaciones que implementan
-    JavaEE y mecanismos de HA (GlassFish por ejemplo).
     Si la tendencia era ejecutar procesos de JVM en contenedores Docker con
     imágenes registradas en un registro de Docker, sustituyamos contenedor
     Docker por contenedor de aplicationes JavaEE, imagen de Docker por
@@ -53,9 +46,9 @@
     La plataforma se crea a priori.
     La conectividad no debe ser explícita a nivel de aplicación. Cada plataforma
     dispone de un "service discovery" (JNDI?).
-  - Trocola (Implementation of Java Platform Service).
+  - Katon (Implementation of JEEMI).
     Utiliza uno o varios servidores de aplicaciones (diversos clústers) JavaEE,
-    con HA. Distintas implementaciones para distintos comportamientos.
+    con HA. Distintas implementaciones para distintos proveedores.
     La local levanta el servidor de aplicaciones local, implementación del cual
     está preparada para gestionar (creando los clústers e instancias HA cuando
     sea necesario), y el resto de servicios con implementación local (Como un
@@ -63,8 +56,6 @@
     La de AWS crea las instancias necesarias para alojar los contenedores de
     aplicaciones necesarios, con las instancias del servidor de aplicaciones
     necesarias en cada instancia de AWS.
-    Este proyecto permite definir todos los parámetros en todas las clases de
-    plataforma. Actúa como cliente siempre, adaptando su entorno accesible.
-    Puede ser implementado en cualquier lenguaje, aunque preferiblemente en
-    Java (JVM).
+  - Se puede utilizar Resort como cliente, mediante la creación de componentes
+    JEEMI.
 
