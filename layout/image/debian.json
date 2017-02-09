@@ -1,7 +1,7 @@
 {
 	"variables": {
-		"debian_version": "8.6.0",
-		"iso_checksum": "6c3b53d2a33e34644153683f4492a7773340812c540eb3c5fdeee61e0c8dbafb2f9d634db0d2518b44fbf16770ec15f80561b49c280e27984e887ac71bfb3c3a",
+		"debian_version": "8.7.1",
+		"iso_checksum": "534795785d2706e64e3a4dff9648fd0302a1272c668a99a81ba3a984695986ac814d8193c5335bd13dce0592fc470eebe9fc4a6c9991f87a6686329a667ac30d",
 		"iso_checksum_type": "sha512"
 	},
 	"builders": [

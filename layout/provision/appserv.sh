@@ -2,7 +2,8 @@
 
 # Installing dependencies
 # openjdk-7-jdk-headless is not available yet
-apt-get install -y openjdk-7-jdk unzip
+apt-get install -y -t jessie-backports openjdk-8-jdk-headless
+apt-get install -y unzip
 
 # Installing GlassFish Server
 if [ ! -f /vagrant/repo/glassfish-4.1.1-b01-10_06_2015.zip ]; then

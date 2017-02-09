@@ -108,8 +108,8 @@
 	
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		
-		<settings.compiler.sourceVersion>1.7</settings.compiler.sourceVersion>
-		<settings.compiler.targetVersion>1.7</settings.compiler.targetVersion>
+		<settings.compiler.sourceVersion>1.8</settings.compiler.sourceVersion>
+		<settings.compiler.targetVersion>1.8</settings.compiler.targetVersion>
 		
 		<settings.codesigner.keystore>keystore.jks</settings.codesigner.keystore>
 		<settings.codesigner.storetype>JKS</settings.codesigner.storetype>
